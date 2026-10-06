@@ -1,0 +1,23 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>👀</title><link rel="stylesheet" href="style.css"><script src="config.js"></script></head><body><main class="wrap">
+<div class="tag fade">CLUE #3 · THE PUZZLE</div>
+<h1 class="fade" style="animation-delay:.2s">CAN YOU SOLVE THIS? 💀</h1>
+<div class="card fade" style="animation-delay:.6s"><p class="clue" id="riddle"></p><p class="clue" style="margin-top:14px">WHAT AM I?</p></div>
+<div class="fade" style="animation-delay:1s" id="opts"></div>
+<button class="btn" id="go">SUBMIT ANSWER</button>
+<p class="msg" id="msg"></p>
+<div class="card" id="final" hidden><p class="clue" id="fclue"></p></div>
+<div class="prog" id="prog" hidden><span class="ok">CLUE 1 ✓</span><span class="ok">CLUE 2 ✓</span><span class="ok">CLUE 3 ✓</span><span class="lock">FINAL 🔒</span></div></main>
+<script>
+const C=CAMPAIGN_CONFIG,L=['A','B','C','D'];let pick=-1;
+const q=id=>document.getElementById(id);
+q('riddle').innerHTML=C.riddle.join('<br>');
+C.options.forEach((t,i)=>{const b=document.createElement('button');b.className='btn opt';b.textContent=L[i]+') '+t;
+b.onclick=()=>{pick=i;document.querySelectorAll('.opt').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');q('msg').textContent=''};q('opts').appendChild(b)});
+q('go').onclick=()=>{
+ if(pick<0){q('msg').textContent='Pick an option first. 👀';return}
+ if(pick===C.correctIndex){q('msg').innerHTML='CORRECT. 👀☁️<br><span class="sub">You\'ve figured out the clue.<br>One final scan remains.</span>';
+  q('fclue').textContent=C.poster3Clue;q('final').hidden=false;q('prog').hidden=false;q('go').disabled=true;
+  document.querySelectorAll('.opt').forEach(x=>x.disabled=true)}
+ else{q('msg').innerHTML='NOPE 😭<br><span class="sub">Think bigger.<br>Try again.</span>'}
+};
+</script></body></html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>You found it 🚀</title><link rel="stylesheet" href="style.css"><script src="config.js"></script>
+<style>
+canvas#fx{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.cloud{position:fixed;z-index:0;width:220px;height:70px;border-radius:70px;background:#8ab4ff22;filter:blur(18px);animation:fl 28s linear infinite}
+.cloud:nth-child(2){top:55%;animation-duration:38s;animation-delay:-12s;width:300px}
+.cloud:nth-child(3){top:80%;animation-duration:33s;animation-delay:-20s}
+@keyframes fl{from{left:-320px}to{left:105%}}
+.t1{font-size:clamp(2.6rem,14vw,4rem);background:linear-gradient(90deg,#60a5fa,#a78bfa,#fff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.lines p{font-size:1.4rem;font-weight:700;color:var(--muted)}.lines p.b{color:#fff;font-weight:900;margin-top:10px}
+.big{font-size:4.5rem;animation:bob 3s ease-in-out infinite;filter:drop-shadow(0 0 25px #8b5cf6)}
+@keyframes bob{50%{transform:translateY(-10px)}}
+.ttl{font-size:clamp(1.5rem,7.5vw,2.1rem);font-weight:900}
+.col{font-size:clamp(2.4rem,13vw,3.4rem);font-weight:900;letter-spacing:.1em;color:#a78bfa;text-shadow:0 0 25px #8b5cf6}
+.lau{font-size:.9rem;letter-spacing:.25em;color:var(--muted);font-weight:800;margin-top:16px}
+.date{font-size:clamp(3rem,16vw,4.6rem);font-weight:900;line-height:1;color:#fff;text-shadow:0 0 30px #3b82f6}
+.glow{border-color:#8b5cf6;box-shadow:0 0 60px #8b5cf666}
+.lb{font-size:1.4rem;font-weight:900;letter-spacing:.12em;color:#93c5fd}
+</style></head><body>
+<div class="cloud" style="top:12%"></div><div class="cloud"></div><div class="cloud"></div><canvas id="fx"></canvas>
+<main class="wrap">
+<h1 class="t1 fade" style="animation-delay:.2s">YOU FOUND IT. 🚀</h1>
+<div class="lines">
+<p class="fade" style="animation-delay:1.2s">You've scanned.</p><p class="fade" style="animation-delay:1.9s">You've guessed.</p>
+<p class="fade" style="animation-delay:2.6s">You've followed the clues.</p><p class="b fade" style="animation-delay:3.4s">And now you know why. 👀</p></div>
+<div class="card glow fade" style="animation-delay:4.4s">
+<div class="big">☁️</div><div class="ttl" id="ttl"></div><div class="col" id="col"></div>
+<div class="lau">OFFICIALLY LAUNCHING</div><div class="date" id="date"></div></div>
+<div class="lb fade" style="animation-delay:5.4s">LEARN. BUILD. CONNECT.</div>
+<p class="sub fade" style="animation-delay:6s" id="fr"></p>
+<p class="ttl fade" style="animation-delay:6.6s" id="see"></p></main>
+<script>
+const C=CAMPAIGN_CONFIG,g=id=>document.getElementById(id);
+g('ttl').textContent=C.finalTitle;g('col').textContent=C.college;g('date').textContent=C.launchDate.toUpperCase();
+g('fr').textContent=C.finalReveal;g('see').textContent='SEE YOU ON '+C.launchDate.toUpperCase()+'. 👀🚀';
+if(!matchMedia('(prefers-reduced-motion:reduce)').matches){
+const c=g('fx'),x=c.getContext('2d');let W,H;
+function rs(){W=c.width=innerWidth;H=c.height=innerHeight}rs();addEventListener('resize',rs);
+const P=[...Array(35)].map(()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*2+.5,v:Math.random()*.4+.1}));
+let F=[];function burst(){for(let i=0;i<70;i++)F.push({x:W/2,y:H*.4,vx:(Math.random()-.5)*12,vy:Math.random()*-10-2,s:Math.random()*6+3,c:['#3b82f6','#8b5cf6','#fff','#22d3ee'][i%4],l:120})}
+function d(){x.clearRect(0,0,W,H);x.fillStyle='#ffffff99';P.forEach(p=>{p.y-=p.v;if(p.y<0)p.y=H;x.beginPath();x.arc(p.x,p.y,p.r,0,7);x.fill()});
+F=F.filter(f=>f.l-->0);F.forEach(f=>{f.x+=f.vx;f.y+=f.vy;f.vy+=.3;x.fillStyle=f.c;x.fillRect(f.x,f.y,f.s,f.s)});requestAnimationFrame(d)}
+d();setTimeout(burst,4800);setTimeout(burst,6600);}
+</script></body></html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AWS SBG QR Campaign</title><link rel="stylesheet" href="style.css">
+<style>.wrap{max-width:900px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px}
+.qr{background:#fff;padding:12px;border-radius:12px;margin:12px auto;max-width:260px}.qr canvas{display:none!important}.qr img{width:100%!important;height:auto!important;display:block}
+.url{word-break:break-all;font-size:.85rem;color:var(--muted);margin-bottom:12px}.warn{background:#4c1d1d;border:1px solid #ef4444;border-radius:14px;padding:14px;font-weight:700}</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><script src="config.js"></script></head><body>
+<main class="wrap"><h1>AWS SBG QR CAMPAIGN</h1>
+<div class="warn" id="warn" hidden>⚠️ Placeholder URL in use. Open config.js, set BASE_URL to your real GitHub Pages address, and reload. QR downloads stay locked until then.</div>
+<div class="grid" id="grid"></div><button class="btn" id="all">DOWNLOAD ALL QRs</button></main>
+<script>
+const base=CAMPAIGN_CONFIG.BASE_URL.replace(/\/+$/,''),ready=!base.includes('YOUR-');
+document.getElementById('warn').hidden=ready;
+function png(el){const s=el.querySelector('canvas'),o=document.createElement('canvas');o.width=o.height=1200;const g=o.getContext('2d');g.fillStyle='#fff';g.fillRect(0,0,1200,1200);g.imageSmoothingEnabled=false;g.drawImage(s,88,88,1024,1024);return o.toDataURL('image/png')}
+function dl(i){const a=document.createElement('a');a.href=png(document.getElementById('q'+i));a.download='poster'+i+'-qr.png';a.click()}
+for(let i=1;i<=4;i++){const u=base+'/poster'+i+'.html',d=document.createElement('div');d.className='card';
+d.innerHTML='<div class="tag">POSTER '+i+'</div><div class="qr" id="q'+i+'"></div><div class="url">'+u+'</div><button class="btn" '+(ready?'':'disabled ')+'onclick="dl('+i+')">DOWNLOAD QR</button>';
+document.getElementById('grid').appendChild(d);
+new QRCode(document.getElementById('q'+i),{text:u,width:1024,height:1024,correctLevel:QRCode.CorrectLevel.H})}
+document.getElementById('all').disabled=!ready;
+document.getElementById('all').onclick=()=>{[1,2,3,4].forEach((i,k)=>setTimeout(()=>dl(i),k*600))};
+</script></body></html>
