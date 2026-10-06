@@ -1,7 +1,7 @@
 // ============ EDIT EVERYTHING YOU NEED HERE ============
 const CAMPAIGN_CONFIG = {
   // 1) After GitHub Pages is live, put your address here (no slash at the end):
-  BASE_URL: "https://YOUR-GITHUB-USERNAME.github.io/YOUR-REPOSITORY",
+  BASE_URL: "https://surabhigawali22-tech.github.io/AWS-posters",
 
   // 2) Final reveal text
   launchDate: "9 October",
